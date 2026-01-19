@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Download, Mail, Github, Linkedin, ArrowDown, Sparkles, Code, Cpu, Rocket } from 'lucide-react';
 import profileImage from '../assets/profile-pic.png';
-import resumePDF from '../assets/R.G.R. LAKSHAN - CV.pdf';
+import resumePDF from '../assets/R.G.R.LAKSHAN - CV.pdf';
 import { motion, useMotionValue } from 'framer-motion';
 import { useEffect } from 'react';
 
