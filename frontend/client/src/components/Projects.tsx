@@ -39,7 +39,7 @@ const allProjectsData = [
     technologies: ['Unity', 'C#', 'Inkscape', 'Game Development'],
     image: carGameImage,
     githubUrl: 'https://github.com/LakshanRamawickrama/Speed-Rider.git',
-    liveUrl: demoVideo_2d_game, 
+    liveUrl: demoVideo_2d_game,
   },
   {
     title: 'MediCare',
