@@ -9,7 +9,8 @@ import studentSystemImage from '../assets/student_management_s.gif'
 import carGameImage from '../assets/2d_car_racing_game.gif'
 import medicareImage from '../assets/medicare.png'
 import medscriptImage from '../assets/medscript.png'
-import demoVideo from '../assets/2d_cargame_demo_video.mp4'
+import demoVideo_2d_game from '../assets/2d_cargame_demo_video.mp4'
+import demoVideo_Lowyer_case from '../assets/lowyer_case_demo_video.mp4'
 import { VideoPopup } from './VideoPopup'
 
 const allProjectsData = [
@@ -20,7 +21,7 @@ const allProjectsData = [
     technologies: ['React', 'Supabase', 'Encryption', 'Authentication'],
     image: flowCaseImage,
     githubUrl: 'https://github.com/LakshanRamawickrama/Lowyer-Case.git',
-    liveUrl: '', 
+    liveUrl: demoVideo_Lowyer_case,
   },
   {
     title: 'Student Management System',
@@ -38,7 +39,7 @@ const allProjectsData = [
     technologies: ['Unity', 'C#', 'Inkscape', 'Game Development'],
     image: carGameImage,
     githubUrl: 'https://github.com/LakshanRamawickrama/Speed-Rider.git',
-    liveUrl: demoVideo, 
+    liveUrl: demoVideo_2d_game, 
   },
   {
     title: 'MediCare',
