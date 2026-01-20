@@ -10,7 +10,7 @@ import carGameImage from '../assets/2d_car_racing_game.gif'
 import medicareImage from '../assets/medicare.png'
 import medscriptImage from '../assets/medscript.png'
 import demoVideo_2d_game from '../assets/2d_cargame_demo_video.mp4'
-import demoVideo_Lowyer_case from '../assets/lowyer_case_demo_video.mp4'
+import demoVideo_Lowyer_case from '../assets/Lowyer_case_demo_video.mp4'
 import { VideoPopup } from './VideoPopup'
 
 const allProjectsData = [
