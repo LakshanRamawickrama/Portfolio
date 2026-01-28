@@ -2,18 +2,48 @@ import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ExternalLink, Github, Code, Cpu, Rocket } from 'lucide-react'
+import { ExternalLink, Github, Code, Cpu, Rocket, Briefcase, User } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import flowCaseImage from '../assets/modern_legal_case_m.png'
 import studentSystemImage from '../assets/student_management_s.gif'
 import carGameImage from '../assets/2d_car_racing_game.gif'
 import medicareImage from '../assets/medicare.png'
 import medscriptImage from '../assets/medscript.png'
+import aetiImage from '../assets/aeti_mockup.png'
+import ietiImage from '../assets/ieti_mockup.png'
+import helpdeskImage from '../assets/naita_helpdesk_mockup.png'
 import demoVideo_2d_game from '../assets/2d_cargame_demo_video.mp4'
 import demoVideo_Lowyer_case from '../assets/Lowyer_case_demo_video.mp4'
 import { VideoPopup } from './VideoPopup'
 
 const allProjectsData = [
+  {
+    title: 'NAITA IT Helpdesk System',
+    description: 'A professional IT hardware complaint tracking and management system developed for NAITA. Features role-based access control and efficient issue tracking.',
+    type: 'Internship Project',
+    technologies: ['React', 'Tailwind', 'Django', 'PostgreSQL'],
+    image: helpdeskImage,
+    githubUrl: '#',
+    liveUrl: 'https://helpdesk.naita.gov.lk/login',
+  },
+  {
+    title: 'AETI Official Website',
+    description: 'A modern, responsive web platform for the Automobile Engineering Training Institute (NAITA), showcasing courses and institutional training resources.',
+    type: 'Internship Project',
+    technologies: ['React', 'Tailwind', 'Django', 'Python'],
+    image: aetiImage,
+    githubUrl: '#',
+    liveUrl: 'https://aeti.naita.gov.lk/',
+  },
+  {
+    title: 'IETI Official Website',
+    description: 'The official web presence for the Institute of Engineering Technology (NAITA), streamlining access to engineering training information and programs.',
+    type: 'Internship Project',
+    technologies: ['React', 'Tailwind', 'Django', 'Vite'],
+    image: ietiImage,
+    githubUrl: '#',
+    liveUrl: 'https://ieti.naita.gov.lk/',
+  },
   {
     title: 'Flow Case Management System',
     description: 'A secure legal case system using React and Supabase with encryption, authentication, and real-time alerts.',
@@ -30,7 +60,7 @@ const allProjectsData = [
     technologies: ['Flutter', 'Firebase', 'Real-time Data', 'Cross-platform'],
     image: studentSystemImage,
     githubUrl: 'https://github.com/LakshanRamawickrama/Student_m_System.git',
-    liveUrl: '', 
+    liveUrl: '',
   },
   {
     title: '2D Car Racing Game',
@@ -63,11 +93,24 @@ const allProjectsData = [
 
 export function Projects() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<'All' | 'Work' | 'Personal'>('All')
   const [visibleProjects, setVisibleProjects] = useState(3)
   const floatingIcons = [Code, Cpu, Rocket]
 
-  const loadMoreProjects = () => setVisibleProjects(allProjectsData.length)
+  const filteredProjects = allProjectsData.filter((project) => {
+    if (selectedCategory === 'All') return true
+    if (selectedCategory === 'Work') return project.type === 'Internship Project'
+    if (selectedCategory === 'Personal') return project.type === 'Individual Project' || project.type === 'Group Project'
+    return true
+  })
+
+  const loadMoreProjects = () => setVisibleProjects(filteredProjects.length)
   const showLessProjects = () => setVisibleProjects(3)
+
+  const handleCategoryChange = (category: 'All' | 'Work' | 'Personal') => {
+    setSelectedCategory(category)
+    setVisibleProjects(3)
+  }
 
   return (
     <section
@@ -138,15 +181,37 @@ export function Projects() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
             Featured Projects
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
             💻 Real-world applications showcasing full-stack development skills and innovative problem-solving
           </p>
+
+          {/* Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-4 mb-8">
+            {[
+              { id: 'All', label: 'All Projects', icon: Code },
+              { id: 'Work', label: 'Work Projects', icon: Briefcase },
+              { id: 'Personal', label: 'Personal', icon: User },
+            ].map((tab) => (
+              <Button
+                key={tab.id}
+                variant={selectedCategory === tab.id ? 'default' : 'outline'}
+                onClick={() => handleCategoryChange(tab.id as any)}
+                className={`gap-2 transition-all duration-300 ${selectedCategory === tab.id
+                  ? 'shadow-lg shadow-primary/20 scale-105'
+                  : 'hover:bg-primary/5'
+                  }`}
+              >
+                <tab.icon className="w-4 h-4" />
+                {tab.label}
+              </Button>
+            ))}
+          </div>
         </motion.div>
 
         {/* Projects Grid */}
         <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence>
-            {allProjectsData.slice(0, visibleProjects).map((project, index) => (
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.slice(0, visibleProjects).map((project, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -195,16 +260,24 @@ export function Projects() {
                       variant="outline"
                       size="sm"
                       className="gap-2 flex-1 hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 p-0"
+                      disabled={project.githubUrl === '#'}
                     >
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center w-full h-full gap-2 px-4 py-2"
-                      >
-                        <Github className="w-4 h-4" />
-                        Code
-                      </a>
+                      {project.githubUrl !== '#' ? (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center w-full h-full gap-2 px-4 py-2"
+                        >
+                          <Github className="w-4 h-4" />
+                          Code
+                        </a>
+                      ) : (
+                        <div className="flex items-center justify-center w-full h-full gap-2 px-4 py-2 opacity-50 cursor-not-allowed">
+                          <Github className="w-4 h-4" />
+                          Private
+                        </div>
+                      )}
                     </Button>
 
                     <Button
@@ -212,7 +285,11 @@ export function Projects() {
                       className="gap-2 flex-1 hover:bg-accent/10 transition-all duration-300 p-0"
                       onClick={() => {
                         if (project.liveUrl && project.liveUrl !== '#') {
-                          setActiveVideo(project.liveUrl);
+                          if (typeof project.liveUrl === 'string' && (project.liveUrl.endsWith('.mp4') || project.liveUrl.includes('video'))) {
+                            setActiveVideo(project.liveUrl);
+                          } else {
+                            window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
+                          }
                         } else {
                           alert('Demo not available for this project');
                         }
@@ -220,7 +297,7 @@ export function Projects() {
                     >
                       <div className="flex items-center justify-center w-full h-full gap-2 px-4 py-2">
                         <ExternalLink className="w-4 h-4" />
-                        Demo
+                        {typeof project.liveUrl === 'string' && project.liveUrl.includes('http') ? 'Live' : 'Demo'}
                       </div>
                     </Button>
                   </CardFooter>
@@ -232,15 +309,15 @@ export function Projects() {
 
         {/* More / Show Less Button */}
         <div className="text-center mt-12">
-          {visibleProjects < allProjectsData.length ? (
+          {visibleProjects < filteredProjects.length ? (
             <Button onClick={loadMoreProjects} size="lg" className="px-8 py-4">
               More Projects
             </Button>
-          ) : (
+          ) : filteredProjects.length > 3 ? (
             <Button onClick={showLessProjects} size="lg" className="px-8 py-4">
               Show Less
             </Button>
-          )}
+          ) : null}
         </div>
       </div>
 

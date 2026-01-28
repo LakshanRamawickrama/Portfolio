@@ -10,8 +10,8 @@ const experienceData = [
     period: '2024 - Present',
     type: 'Internship',
     description:
-      'Working as a Software Engineering intern at the National Apprentice and Industrial Training Authority (NAITA) head office, contributing to technical solutions and gaining hands-on experience in software development.',
-    skills: ['Software Development', 'Technical Solutions', 'Team Collaboration'],
+      'Working as a Software Engineering intern at the National Apprentice and Industrial Training Authority (NAITA) head office, where I developed official institutional web platforms (AETI, IETI) and a comprehensive IT hardware complaint tracking system.',
+    skills: ['React', 'Tailwind CSS', 'Django', 'Python', 'PostgreSQL'],
   },
   {
     title: 'School Leaver Trainee',

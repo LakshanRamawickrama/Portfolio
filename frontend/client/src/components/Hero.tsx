@@ -8,7 +8,16 @@ import { useEffect } from 'react';
 export function Hero() {
   // Scroll handlers
   const handleContactClick = () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  const handleResumeDownload = () => window.open(resumePDF, '_blank');
+
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = resumePDF;
+    link.download = 'R.G.R.LAKSHAN_CV.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleScrollDown = () => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
 
   // 3D Tilt Effect
@@ -29,7 +38,7 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center py-16 px-4 overflow-hidden bg-hero-gradient">
-      
+
       {/* Floating Background Icons */}
       {floatingIcons.map((Icon, i) => (
         <motion.div
@@ -107,7 +116,7 @@ export function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          🚀 Passionate about crafting innovative digital experiences • 💡 Skilled in React, Node.js & Flutter • 🌱 Eager to learn, create, and inspire through technology
+          🚀 Passionate about crafting innovative digital experiences • 💡 Skilled in React, Flutter, Django & Node.js • 🌱 Eager to learn, create, and inspire through technology
         </motion.p>
 
         {/* Buttons */}
@@ -117,12 +126,12 @@ export function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.8 }}
         >
-          <Button onClick={handleContactClick} size="lg" className="gap-2 px-8 py-3 text-lg font-semibold bg-gradient-to-r from-primary to-primary/80 hover:shadow-2xl hover:scale-105 transition-all duration-300">
-            <Mail className="w-5 h-5" /> Let's Connect
+          <Button onClick={handleContactClick} className="gap-2 px-6 py-2 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <Mail className="w-4 h-4" /> Let's Connect
           </Button>
 
-          <Button variant="outline" size="lg" onClick={handleResumeDownload} className="relative overflow-hidden gap-2 px-8 py-3 text-lg font-semibold border-2 transition-all duration-300 hover:scale-105 hover:border-primary hover:bg-gradient-to-r hover:from-primary/10 hover:via-primary/5 hover:to-primary/10">
-            <Download className="w-5 h-5" /> View Resume
+          <Button variant="outline" onClick={handleDownloadResume} className="relative overflow-hidden gap-2 px-6 py-2 text-base font-semibold border-2 transition-all duration-300 hover:scale-105 hover:border-primary hover:bg-gradient-to-r hover:from-primary/10 hover:via-primary/5 hover:to-primary/10">
+            <Download className="w-4 h-4" /> Download CV
             <span className="absolute top-0 left-0 w-0 h-full bg-white/20 transform -skew-x-12 transition-all duration-500 hover:w-full"></span>
           </Button>
         </motion.div>
